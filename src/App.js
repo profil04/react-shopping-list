@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 function App() {
 
   const [items, setItems] = useState([
-    { name: 'item 1', quantity: 1, isSelected: false, unit: null, price: 20, category: 'food'},
-    { name: 'item 2', quantity: 3, isSelected: true, unit: null, price: 10, category: 'others'},
-    { name: 'item 3', quantity: 2, isSelected: false, unit: null, price: 50, category: 'clothes'},
+    { name: 'btem 1', quantity: 1, isSelected: false, unit: null, price: 20, category: 'food'},
+    { name: 'atem 2', quantity: 3, isSelected: true, unit: null, price: 10, category: 'others'},
+    { name: 'etem 3', quantity: 2, isSelected: false, unit: null, price: 50, category: 'clothes'},
   ]);
 
   const [itemName, setName] = useState("");
@@ -80,8 +80,69 @@ function App() {
     console.log(items);
   }
 
-  function sortItems(){
-    setItems(prevItems => prevItems.sort((a , b) => a.name - b.name))
+  function sortItems(x){
+    console.log(items);
+
+    let sortedItems;
+
+    switch (x) {
+      case 'alphabetical':
+        sortedItems = [...items].sort((a , b) => a.name > b.name);
+        break;
+      case 'category':
+        sortedItems = [...items].sort((a , b) => a.category > b.category);
+        break;
+      case 'quantity':
+        sortedItems = [...items].sort((a , b) => a.quantity > b.quantity);
+        break;
+    }
+    setItems(sortedItems);
+    console.log(sortedItems);
+  }
+
+  function Navbar(props) {
+    return (
+      <nav className='navbar'>
+        <ul className='navbar-nav'> { props.children } </ul>
+      </nav>
+    );
+  }
+  
+  function NavItem(props){
+    
+    const [open, setOpen] = useState(false);
+  
+    return(
+      <li className='nav-item'>
+        <a href='#' className='icon-button-and-text' onClick={() => setOpen(!open)}>
+          {props.name}
+        </a>
+  
+        {open && props.children}
+      </li>
+    );
+  }
+  
+  function DropdownMenu(){
+  
+    function DropdownItem(props) {
+      return (
+        <button onClick={() => sortItems(props.sortBy)} className='menu-item'>
+          <span className='icon-button'>{props.icon}</span>
+          {props.children}
+        </button>
+      );
+    }
+  
+    return (
+      <div className='dropdown'>
+        <DropdownItem sortBy = "alphabetical" >Alphabetical</DropdownItem>
+        <DropdownItem sortBy = "category" >By category</DropdownItem>
+        <DropdownItem sortBy = "quantity" >By quantity</DropdownItem>
+        <DropdownItem sortBy = "oldest" >Oldest</DropdownItem>
+        <DropdownItem sortBy = "newest" >Newest</DropdownItem>
+      </div>
+    );
   }
 
   return (
@@ -111,6 +172,7 @@ function App() {
                 onChange={(event) => handleChange(event)}         
             />
             <input type = "button" value = "Dodaj do listy" onClick={() => handleClick()} />
+            <input type = "button" value = "sortuj Aflabetycznie" onClick={sortItems} />
           </form>
         </div>
         <div className='navbar'>
@@ -138,50 +200,7 @@ function App() {
   );
 
 
-function Navbar(props) {
-  return (
-    <nav className='navbar'>
-      <ul className='navbar-nav'> { props.children } </ul>
-    </nav>
-  );
-}
 
-function NavItem(props){
-  
-  const [open, setOpen] = useState(false);
-
-  return(
-    <li className='nav-item'>
-      <a href='#' className='icon-button-and-text' onClick={() => setOpen(!open)}>
-        {props.name}
-      </a>
-
-      {open && props.children}
-    </li>
-  );
-}
-
-function DropdownMenu(){
-
-  function DropdownItem(props) {
-    return (
-      <button onClick={() => sortItems()} className='menu-item'>
-        <span className='icon-button'>{props.icon}</span>
-        {props.children}
-      </button>
-    );
-  }
-
-  return (
-    <div className='dropdown'>
-      <DropdownItem sortBy = "alphabetical" >Alphabetical</DropdownItem>
-      <DropdownItem sortBy = "category" >By category</DropdownItem>
-      <DropdownItem sortBy = "quantity" >By quantity</DropdownItem>
-      <DropdownItem sortBy = "oldest" >Oldest</DropdownItem>
-      <DropdownItem sortBy = "newest" >Newest</DropdownItem>
-    </div>
-  );
-}
 }
 
 export default App;
