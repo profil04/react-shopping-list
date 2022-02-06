@@ -12,6 +12,7 @@ function App() {
   const [itemName, setName] = useState("");
   const [itemQuantity, setQuantity] = useState(1);
   const [categoryName, setCategory] = useState("");
+  const [isAsc, setAsc] = useState(true);
 
   function handleChange(event){
 
@@ -87,7 +88,7 @@ function App() {
 
     switch (x) {
       case 'alphabetical':
-        sortedItems = [...items].sort((a , b) => a.name > b.name);
+        sortedItems = [...items].sort((a , b) => isAsc ? a.name > b.name : a.name < b.name);
         break;
       case 'category':
         sortedItems = [...items].sort((a , b) => a.category > b.category);
@@ -176,6 +177,7 @@ function App() {
           </form>
         </div>
         <div className='navbar'>
+        <button onClick={() => setAsc(!isAsc)}>--------------------</button>
           <Navbar>
             <NavItem icon="🙃" name="Sortuj">
               <DropdownMenu/>
