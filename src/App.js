@@ -75,6 +75,15 @@ function App() {
   */
   }
 
+  function deleteItem(index){
+    setItems(prevItems => prevItems.splice(index, 1))
+    console.log(items);
+  }
+
+  function sortItems(){
+    setItems(prevItems => prevItems.sort((a , b) => a.name - b.name))
+  }
+
   return (
     <div className='app'>
       <div className='toolbar'>
@@ -115,15 +124,19 @@ function App() {
       <div className='list-container'>
         {items.map((item, index) =>
           <div className='item-container' key={index}>
+            {console.log(index)}
             <div className='item-info'>
-              <span>{item.name} {item.category} {item.quantity}</span>
+              <div>{item.name} {item.category} {item.quantity}</div>
+              <div>
+                <input type='button' value='❌' onClick={(index) => deleteItem(index)}></input>
+              </div>
             </div>
           </div>  
         )}
       </div>
     </div>
   );
-}
+
 
 function Navbar(props) {
   return (
@@ -152,22 +165,23 @@ function DropdownMenu(){
 
   function DropdownItem(props) {
     return (
-      <a href='#' className='menu-item'>
+      <button onClick={() => sortItems()} className='menu-item'>
         <span className='icon-button'>{props.icon}</span>
         {props.children}
-      </a>
+      </button>
     );
   }
 
   return (
     <div className='dropdown'>
-      <DropdownItem icon='🙃'>Alphabetical</DropdownItem>
-      <DropdownItem>By category</DropdownItem>
-      <DropdownItem>By quantity</DropdownItem>
-      <DropdownItem>Oldest</DropdownItem>
-      <DropdownItem>Newest</DropdownItem>
+      <DropdownItem sortBy = "alphabetical" >Alphabetical</DropdownItem>
+      <DropdownItem sortBy = "category" >By category</DropdownItem>
+      <DropdownItem sortBy = "quantity" >By quantity</DropdownItem>
+      <DropdownItem sortBy = "oldest" >Oldest</DropdownItem>
+      <DropdownItem sortBy = "newest" >Newest</DropdownItem>
     </div>
   );
+}
 }
 
 export default App;
