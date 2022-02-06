@@ -57,7 +57,7 @@ body {
 
 .list-container {
   background-color: #cfcfd1;
-  height: 800px;
+  height: 1500px;
   max-width: 500px;
   margin-top: 15px;
   margin-left: auto;
@@ -75,6 +75,7 @@ body {
   height: 70px;
   background-color: #272329;
   color: #b2a9bb;
+  font-size: 22px;
   /*display: flex;*/
 }
 

@@ -3,11 +3,7 @@ import React, { useState } from 'react'
 
 function App() {
 
-  const [items, setItems] = useState([
-    { name: 'btem 1', quantity: 1, isSelected: false, unit: null, price: 20, category: 'food'},
-    { name: 'atem 2', quantity: 3, isSelected: true, unit: null, price: 10, category: 'others'},
-    { name: 'etem 3', quantity: 2, isSelected: false, unit: null, price: 50, category: 'clothes'},
-  ]);
+  const [items, setItems] = useState([]);
 
   const [itemName, setName] = useState("");
   const [itemQuantity, setQuantity] = useState(1);
@@ -43,37 +39,45 @@ function App() {
   }
 
   function handleClick() {
-    
-    //const newItem = {itemName: itemName, quantity: itemQuantity, category: categoryName};
-
     setItems(prevItems => prevItems.concat([{
         name: itemName, quantity: itemQuantity, category: categoryName
       }]))
 
       console.log(items);
-    
-    /*
-    const itms = this.state.itms.slice(0, this.state.stepNumber + 1);    
-    const current = history[this.state.stepNumber];    
-    const calculations = current.calculations.slice();    
+  }
 
-    const param1 = this.state.param1;
-    const sign = this.state.sign;
-    const param2 = this.state.param2;
-    const result = Number(param1) + Number(param2);
-    
-    calculations[0] = param1;
-    calculations[1] = sign;
-    calculations[2] = param2;
-    calculations[3] = result;
-    this.setState({
-      history: history.concat([{
-          calculations: calculations
-      }]),      
-      stepNumber: history.length,
-    });
-    console.log(this.state.history[this.state.stepNumber]);
-  */
+  function addBasicItems() {
+    setItems(prevItems => prevItems.concat([{
+        name: 'mleko', quantity: 3, category: 'spożywcze'
+      }]))
+
+      setItems(prevItems => prevItems.concat([{
+        name: 'masło', quantity: 2, category: 'spożywcze'
+      }]))
+
+      setItems(prevItems => prevItems.concat([{
+        name: 'ser żółty', quantity: 3, category: 'spożywcze'
+      }]))
+
+      setItems(prevItems => prevItems.concat([{
+        name: 'spodnie', quantity: 1, category: 'ubrania'
+      }]))
+
+      setItems(prevItems => prevItems.concat([{
+        name: 'bułki', quantity: 10, category: 'spożywcze'
+      }]))
+
+      setItems(prevItems => prevItems.concat([{
+        name: 'chleb', quantity: 1, category: 'spożywcze'
+      }]))
+
+      setItems(prevItems => prevItems.concat([{
+        name: 'papier toaletowy', quantity: 30, category: 'kosmetyki'
+      }]))
+
+      setItems(prevItems => prevItems.concat([{
+        name: 'mydło', quantity: 4, category: 'kosmetyki'
+      }]))
   }
 
   function deleteItem(index){
@@ -138,13 +142,19 @@ function App() {
   
     return (
       <div className='dropdown'>
-        <DropdownItem sortBy = "alphabetical" >Alphabetical</DropdownItem>
-        <DropdownItem sortBy = "category" >By category</DropdownItem>
-        <DropdownItem sortBy = "quantity" >By quantity</DropdownItem>
-        <DropdownItem sortBy = "oldest" >Oldest</DropdownItem>
-        <DropdownItem sortBy = "newest" >Newest</DropdownItem>
+        <DropdownItem sortBy = "alphabetical" >Alfabetycznie</DropdownItem>
+        <DropdownItem sortBy = "category" >Po kategorii</DropdownItem>
+        <DropdownItem sortBy = "quantity" >Po ilości</DropdownItem>
       </div>
     );
+  }
+
+  function AscIcon(props) {
+    return <button onClick={() => setAsc(!isAsc)}>⬇️</button>;
+  }
+  
+  function DescIcon(props) {
+    return <button onClick={() => setAsc(!isAsc)}>⬆️</button>;
   }
 
   return (
@@ -154,11 +164,16 @@ function App() {
           <h1>Shopping List</h1>
         </div>
         <div className='asc-desc-button'>
-          <button onClick={() => setAsc(!isAsc)}>⬇️</button>
+          {isAsc ? (
+					<button onClick={() => setAsc(!isAsc)}>⬇️</button>
+				) : (
+          <button onClick={() => setAsc(!isAsc)}>⬆️</button>
+				)}
+      
         </div>
         <div className='navbar'>
           <Navbar>
-            <NavItem icon="🙃" name="Sortuj">
+            <NavItem name="Sortuj">
               <DropdownMenu/>
             </NavItem>
           </Navbar>
@@ -188,13 +203,14 @@ function App() {
                 onChange={(event) => handleChange(event)}         
             /> <br/>
             <input type = "button" value = "Dodaj do listy" onClick={() => handleClick()} />
+            <input type = "button" value = "Dodaj podstawowe artykuły" onClick={() => addBasicItems()} />
           </form>
         </div>
       <div className='list-container'>
         {items.map((item, index) =>
           <div className='item-container' key={index}>
             <div className='item-info'>
-              <div>{item.name} {item.category} {item.quantity}</div>
+              <div>{item.name} {item.quantity} szt, kategoria: {item.category}</div>
               <div>
                 <input type='button' value='❌' onClick={(index) => deleteItem(index)}></input>
               </div>
