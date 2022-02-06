@@ -77,6 +77,7 @@ function App() {
   }
 
   function deleteItem(index){
+    console.log("index" + index)
     setItems(prevItems => prevItems.splice(index, 1))
     console.log(items);
   }
@@ -152,32 +153,10 @@ function App() {
         <div className='app-name'>
           <h1>Shopping List</h1>
         </div>
-        <div className='add-item-form'>
-          <form>
-            <input 
-                type = "text" 
-                className='item-name-input' 
-                name='item-name-input' 
-                onChange={(event) => handleChange(event)}
-            />
-            <input 
-                type = "number" 
-                className='item-quantity-input' 
-                name='item-quantity-input'  
-                onChange={(event) => handleChange(event)}     
-            />
-            <input 
-                type = "text" 
-                className='item-category-input' 
-                name='item-category-input'   
-                onChange={(event) => handleChange(event)}         
-            />
-            <input type = "button" value = "Dodaj do listy" onClick={() => handleClick()} />
-            <input type = "button" value = "sortuj Aflabetycznie" onClick={sortItems} />
-          </form>
+        <div className='asc-desc-button'>
+          <button onClick={() => setAsc(!isAsc)}>⬇️</button>
         </div>
         <div className='navbar'>
-        <button onClick={() => setAsc(!isAsc)}>--------------------</button>
           <Navbar>
             <NavItem icon="🙃" name="Sortuj">
               <DropdownMenu/>
@@ -185,10 +164,35 @@ function App() {
           </Navbar>
         </div>
       </div>
+      <div className='add-item-form'>
+          <form>
+            Nazwa: 
+            <input 
+                type = "text" 
+                className='item-name-input' 
+                name='item-name-input' 
+                onChange={(event) => handleChange(event)}
+            /> <br/>
+            Ilość: 
+            <input 
+                type = "number" 
+                className='item-quantity-input' 
+                name='item-quantity-input'  
+                onChange={(event) => handleChange(event)}     
+            /> <br/>
+            Kategoria: 
+            <input 
+                type = "text" 
+                className='item-category-input' 
+                name='item-category-input'   
+                onChange={(event) => handleChange(event)}         
+            /> <br/>
+            <input type = "button" value = "Dodaj do listy" onClick={() => handleClick()} />
+          </form>
+        </div>
       <div className='list-container'>
         {items.map((item, index) =>
           <div className='item-container' key={index}>
-            {console.log(index)}
             <div className='item-info'>
               <div>{item.name} {item.category} {item.quantity}</div>
               <div>

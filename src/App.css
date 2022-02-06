@@ -10,17 +10,34 @@
 
 .navbar {
   height: auto;
-  background-color: var(--bg);
+  background-color: #b2a9bb;
   padding: 0 1rem;
   font-size: 25px;
   /*border-bottom: var(--border);*/
+}
+
+.asc-desc-button{
+  height: auto;
+  background-color: #b2a9bb;
+  margin: auto;
+}
+
+.asc-desc-button > button{
+  border: none;
+  height: 30px;
+  width: 30px;
+}
+
+.nav-item > a {
+  text-decoration: none;
+  color: #272329;
 }
 
 .navbar-nav {
   max-width: 100%;
   height: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .nav-item {
@@ -39,10 +56,10 @@ body {
 }
 
 .list-container {
-  background-color: #f0c260;
+  background-color: #cfcfd1;
   height: 800px;
   max-width: 500px;
-  margin-top: 75px;
+  margin-top: 15px;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -52,16 +69,17 @@ body {
 }
 
 .item-container{
+  margin-top: 5px;
+  margin-bottom: 5px;
   width: 480px;
   height: 70px;
-  background-color: aqua;
-  border: 2px solid red;
-  border-radius: 20px;
+  background-color: #272329;
+  color: #b2a9bb;
   /*display: flex;*/
 }
 
 .toolbar {
-  background-color: #f0c260;
+  background-color: #cfcfd1;
   height: 75px;
   max-width: 850px;
   margin-top: 75px;
@@ -72,4 +90,14 @@ body {
 
 .app-name {
   width: 3000px;
+}
+
+.add-item-form{
+  margin-top: 15px;
+  margin-bottom: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+  background-color: #cfcfd1;
+  width: 500px;
 }
